@@ -1,0 +1,50 @@
+== rest-service
+
+This gem require RestClient gem, if you don't have it, download it from: 
+https://github.com/archiloque/rest-client
+and generate the gem file following next steps:
+$ gem build rest-client.gemspec
+$ gem install ./rest-client-1.6.7.gem
+
+DELETE  -   DELETE
+SHOW    -   GET
+CREATE  -   POST
+EDIT    -   PUT
+
+1 - INITIALIZE SERVER, PORT AND RESOURCE
+
+Initialize values as server, port and resource. If server and port aren't
+defined the default values are for server 'localhost' and for port '3000'
+
+Example for resource tasks:
+response = RestService.default('tasks')
+
+2 - DELETE
+
+Indicate the id
+
+Example
+RestService.delete '14'
+
+3 - SHOW
+
+Indicate the id
+
+Example
+resource = RestService.show '16'
+
+4 - CREATE
+
+Indicate the attributes of the item to create in the format shown below:
+{:param1 => value1, :param2 = > value2, :paramN => valueN}
+
+Example
+RestService.create ({:title => "taks7", :description => "task to do", :date => "12/12/12" })
+
+5 - EDIT
+
+Indicate the id and attributes of the item to modify in the format shown below:
+id, {:param1 => value1, :param2 = > value2, :paramN => valueN}
+
+Example
+RestService.edit '15', {:title => "newtask", :description => "do it", :date => "13/12/12" } 
