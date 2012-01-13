@@ -11,7 +11,7 @@ Initialize values as server, port and resource. If server and port aren't
 defined the default values are for server 'localhost' and for port '3000'
 
 Example for resource tasks:
-response = RestService.initialize('tasks')
+response = RestService.initialize('tasks') where 'task' is the resource
 
 2 - DELETE
 
@@ -25,7 +25,7 @@ RestService.delete '14'
 Indicate the id
 
 Example
-resource = RestService.show '16'
+resource = RestService.show '16' or RestService.show '16.json'
 
 4 - CREATE
 
