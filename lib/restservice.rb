@@ -5,7 +5,7 @@ module RestService
   @port =   '3000'
   @source = ''
   @uri = @server + ':' + @port 
-  ERRORINIT = 'You should initialize default values by calling RestService.default() method'
+  ERRORINIT = 'You should initialize default values by calling RestService.initialize() method'
   ERRORARG = 'Wrong number of arguments'
   ERRORMETHOD = 'Set the default values'
   
