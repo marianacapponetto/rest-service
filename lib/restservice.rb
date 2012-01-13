@@ -5,62 +5,113 @@ module RestService
   @port =   '3000'
   @source = ''
   @uri = @server + ':' + @port 
+  ERRORINIT = 'You should initialize default values by calling RestService.default() method'
+  ERRORARG = 'Wrong number of arguments'
+  ERRORMETHOD = 'Set the default values'
   
   #example to start
-  #response = RestService.default('tasks')
+  #rests = RestService.default('tasks')
   
   #*args = server , port , source 
-  def self.default (*args )
-		
-	if args.size == 1
-		@source = args[0]
-		@uri = @uri + '/' + @source
-	else		
-		@server = args[0]
-		@port = args[1]
-		@source = args[2]
-		@uri = @server + ':' + @port + '/' + @source
+  
+  def self.initialize (*args )
+	begin
+		if args.length == 0
+			raise NoMethodError
+		elsif
+			if args.size == 1
+				@source = args[0]
+				@uri = @uri + '/' + @source
+			else		
+				@server = args[0]
+				@port = args[1]
+				@source = args[2]
+				@uri = @server + ':' + @port + '/' + @source
+			end	
+		end
+	rescue NoMethodError => e
+		puts ERRORMETHOD
 	end
+	
   end
   
   #example to delete
   #response = RestService.delete '14'
   #puts response
   #response.code
-  def self.delete (id)    
-    urids =  @uri + '/' +id         
-    RestClient.delete urids
+  def self.delete (id='')    
+	begin
+		if id == ''
+			raise ArgumentError
+		elsif
+			urids =  @uri + '/' +id         
+			RestClient.delete urids
+		end
+	rescue RestClient::ResourceNotFound => e
+		ERRORINIT #e.message
+	rescue ArgumentError => e
+		puts ERRORARG
+	end
   end
   
   #example to show
-  #response = RestService.show '16'
+  # res = RestService.show '16'
   #puts response
-  #response.code   
-  def self.show(id)
-    urids = @uri + '/' +id         
-    response = RestClient.get urids
-    return response
-  end
-  
+  #response.code    
+  def self.show(id='') 
+	begin
+		if id == ''
+			raise ArgumentError
+		elsif
+			urids = @uri + '/' +id         
+			response = RestClient.get urids
+			return response
+		end
+	rescue RestClient::ResourceNotFound => e
+		ERRORINIT #e.message 
+	rescue ArgumentError => e
+		puts ERRORARG
+	end
+end
+
   #example to create
-  #response = RestService.create ({:title => "tarea7", :description => "tareas", :fecha => "12/12/12" })
+  #res = RestService.create ({:title => "tarea7", :description => "tareas", :fecha => "12/12/12" })
   #puts response
   #response.code
-  def self.create(value)
-	  #{:table => {:param1 => value1, :param2 => value2, :paramN => valueN }}
-    key = @source[0..-2] #source singularized	
-    param = {key.to_sym => value}
-    RestClient.post  @uri, param
+  def self.create(value='')
+	begin
+		if value == ''
+			raise ArgumentError
+		elsif
+			key = @source[0..-2] #source singularized	
+			param = {key.to_sym => value}
+			RestClient.post  @uri, param
+		end
+	rescue RestClient::ResourceNotFound => e
+		ERRORINIT #e.message 
+	rescue ArgumentError => e
+		puts ERRORARG		
+	end
   end
   
   #example to edit
-  #response = RestService.edit '15', {:title => "nuevatarea", :description => "nuevadescripcion", :fecha => "12/01/11" } 
+  #res = RestService.edit '15', {:title => "nuevatarea", :description => "nuevadescripcion", :fecha => "12/01/11" } 
   #puts response
   #response.code
-  def self.edit(id,value)
-    uriedit = @uri + '/' +id
-    key = @source[0..-2] #source singularized	
-    param = {key.to_sym => value}
-    RestClient.put  uriedit, param 
+  def self.edit(id='',value='')
+	begin
+		if id == '' || value == ''
+			raise ArgumentError
+		elsif
+			uriedit = @uri + '/' +id
+			key = @source[0..-2] #source singularized	
+			param = {key.to_sym => value}
+			RestClient.put  uriedit, param 
+		end
+	rescue RestClient::ResourceNotFound => e
+		ERRORINIT #e.message 
+	rescue ArgumentError => e
+		puts ERRORARG
+	end    
   end
 end
