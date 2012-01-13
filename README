@@ -1,11 +1,5 @@
 == rest-service
 
-This gem require RestClient gem, if you don't have it, download it from: 
-https://github.com/archiloque/rest-client
-and generate the gem file following next steps:
-$ gem build rest-client.gemspec
-$ gem install ./rest-client-1.6.7.gem
-
 DELETE  -   DELETE
 SHOW    -   GET
 CREATE  -   POST
@@ -17,7 +11,7 @@ Initialize values as server, port and resource. If server and port aren't
 defined the default values are for server 'localhost' and for port '3000'
 
 Example for resource tasks:
-response = RestService.default('tasks')
+response = RestService.initialize('tasks')
 
 2 - DELETE
 
