@@ -10,7 +10,7 @@ module RestService
   ERRORMETHOD = 'Set the default values'
   
   #example to start
-  #rests = RestService.default('tasks')
+  #rests = RestService.initialize('tasks')
   
   #*args = server , port , source 
   
@@ -55,7 +55,7 @@ module RestService
   end
   
   #example to show
-  # res = RestService.show '16'
+  #res = RestService.show '16' or RestService.show '16.json'
   #puts response
   #response.code    
   def self.show(id='') 
